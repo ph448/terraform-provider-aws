@@ -214,10 +214,10 @@ func resourceGlobalReplicationGroupUpdate(d *schema.ResourceData, meta interface
 
 	// Only one field can be changed per request
 	updaters := map[string]globalReplicationGroupUpdater{}
+	updaters["engine_version"] = func(input *elasticache.ModifyGlobalReplicationGroupInput) {
+		input.EngineVersion = aws.String(d.Get("engine_version").(string))
+	}
 	if !d.IsNewResource() {
-		updaters["engine_version"] = func(input *elasticache.ModifyGlobalReplicationGroupInput) {
-			input.EngineVersion = aws.String(d.Get("engine_version").(string))
-		}
 		updaters["global_replication_group_description"] = func(input *elasticache.ModifyGlobalReplicationGroupInput) {
 			input.GlobalReplicationGroupDescription = aws.String(d.Get("global_replication_group_description").(string))
 		}
