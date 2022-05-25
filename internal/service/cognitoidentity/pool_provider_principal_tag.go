@@ -177,7 +177,7 @@ func resourcePoolProviderPrincipalTagDelete(d *schema.ResourceData, meta interfa
 
 func DecodePoolProviderPrincipalTagsID(id string) (string, string, error) {
 	idParts := strings.Split(id, ":")
-	if len(idParts) <= 2 {
+	if len(idParts) != 2 {
 		return "", "", fmt.Errorf("expected ID in format UserPoolID:ProviderName, received: %s", id)
 	}
 	providerName := idParts[len(idParts)-1:]
